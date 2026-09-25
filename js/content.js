@@ -1,0 +1,178 @@
+// ALL text lives here. Edit wording without touching game code.
+// Speaker = ခိုင်, her = မမ (Kiki).
+
+export const HER = "မမ";
+export const ME = "ခိုင်";
+export const TOTAL_LEVELS = 5;
+
+export const intro = {
+  title: "မမ အတွက်",
+  lines: [
+    "မမ… ခိုင် ပြောချင်တာလေး တစ်ခုရှိလို့။",
+    "ဒါပေမဲ့ တန်းမပြောသေးဘူးနော်။ 😌",
+    "အရင်ဆုံး ဂိမ်းလေးတွေ နည်းနည်း ကစားကြည့်ပါဦး။",
+  ],
+  start: "စလိုက်မယ် 💗",
+  resume: "ဆက်ကစားမယ်",
+};
+
+export const levelIntro = {
+  1: { title: "Level 1", sub: "ခိုင်တို့အကြောင်း ဘယ်လောက် မှတ်မိသေးလဲ?", go: "ကစားမယ်" },
+  2: { title: "Level 2", sub: "တူညီတဲ့ ပုံလေးတွေကို ရှာပေးပါ", go: "ကစားမယ်" },
+  3: { title: "Level 3", sub: "ပုံလေးကို ပြန်စီပေးပါ", go: "ကစားမယ်" },
+  4: { title: "Level 4", sub: "အသည်းလေးတွေကို ဖမ်းပါ", go: "ကစားမယ်" },
+  5: { title: "Level 5", sub: "နောက်ဆုံး သော့ခလောက်", go: "ဖွင့်မယ်" },
+};
+
+export const quiz = {
+  intro: "ကဲ… မမ ခိုင်တို့အကြောင်း ဘယ်လောက်မှတ်မိသေးလဲ စမ်းကြည့်ရအောင်နော်။",
+  questions: [
+    {
+      q: "ခိုင်တို့ စပြီး စကားပြောဖြစ်ခဲ့တဲ့နေ့က ဘယ်နေ့လဲ၊ မမ မှတ်မိသေးလား?",
+      answer: "စက်တင်ဘာ ၁၇",
+      wrong: ["စက်တင်ဘာ ၁၄", "စက်တင်ဘာ ၂၀", "အောက်တိုဘာ ၁"],
+      hint: "မမ မွေးနေ့ပြီး ၃ ရက်အကြာနေ့လေ။",
+      reveal: "စက်တင်ဘာ ၁၇၊ ည ၇:၂၃။ အဲ့ဒီ minute ကစပြီး ခိုင့်နေ့တွေ ပြောင်းသွားတယ်။",
+    },
+    {
+      q: "အဲ့ဒီနေ့က ဘယ်သူ အရင် စကားစခဲ့တာလဲ?",
+      answer: "မမ",
+      wrong: ["ခိုင်", "Leomatchbot 🤖", "ကံကြမ္မာ ✨"],
+      hint: "\"Hi! I'm from…\" ဆိုပြီး စခဲ့တာ ဘယ်သူလဲ ပြန်စဉ်းစားကြည့်နော်။",
+      reveal: "ဒီ \"Hi\" လေးတစ်လုံးကနေ အားလုံး စခဲ့တာ။",
+      image: "assets/photos/first-chat.png",
+    },
+    {
+      q: "ခိုင်တို့ ပထမဆုံးအကြိမ် လူချင်းတွေ့ဖြစ်ခဲ့တဲ့နေရာက ဘယ်မှာလဲ?",
+      answer: "Junction Square",
+      wrong: ["Junction City", "တာမွေ", "လှည်းတန်း"],
+      hint: "Kin Neko က matcha နဲ့ berry ကို မှတ်မိသေးလား?",
+      reveal: "အဲ့ဒီနေ့ ခိုင် ဘယ်လောက် စိတ်လှုပ်ရှားနေလဲ မမ မသိဘူး။",
+      image: "assets/photos/first-date-table.jpg",
+    },
+    {
+      q: "မမကို ခိုင် ပထမဆုံး ပေးခဲ့တဲ့ လက်ဆောင်က ဘာလဲ?",
+      answer: "Miniso က ခွေးလေး block",
+      wrong: ["ပန်းစည်း", "ချောကလက်", "teddy bear"],
+      hint: "ဝယ်ပေးတာ မဟုတ်ဘူး၊ ခိုင့်လက်နဲ့ ကိုယ်တိုင် ဆောက်ပေးခဲ့တာ။",
+      reveal: [
+        "အဲ့ဒီ block လေးကို မမရှေ့မှာ ခိုင် ကိုယ်တိုင် ဆောက်ခဲ့တာ။",
+        "ဝယ်ပေးလိုက်ရင် လွယ်တယ်၊ ဒါပေမဲ့ ခိုင် ဘယ်လောက် ကြိုးစားလဲ၊ ဘယ်လောက် ဂရုစိုက်လဲ မမ ခံစားမိစေချင်ခဲ့လို့။",
+        "မမက ခိုင့်ကို စိတ်ရှည်ရှည်နဲ့ စောင့်ပေးတယ်၊ ကူညီပေးရင်း မမလက်တောင် နာသွားတယ်။",
+        "အဲ့ဒါကို ခိုင် ဘယ်တော့မှ မမေ့ဘူး။",
+      ],
+      image: "assets/photos/gift-dog-block.jpg",
+    },
+    {
+      q: "မမ ခိုင့်ကို ခေါ်တဲ့ နာမည်တွေထဲမှာ ခိုင် အကြိုက်ဆုံး နာမည်က ဘာလဲ?",
+      answer: "bbyy",
+      wrong: ["ခိုင်", "ဝတ်ရည်", "kayv"],
+      hint: "b နှစ်လုံး၊ y နှစ်လုံး။",
+      reveal: "မမ \"bbyy\" လို့ ခေါ်တိုင်း ခိုင် ပြုံးမိတယ်။",
+    },
+  ],
+  correct: ["ဟုတ်တယ်! မမ မှတ်မိတယ်နော် 🥹", "အမှန်ပဲ။ ခိုင်လည်း ဒါကို ဘယ်တော့မှ မမေ့ဘူး။"],
+  wrong: "အင်း… မဟုတ်သေးဘူး။ နောက်တစ်ခါ ပြန်ကြည့်နော်။",
+  hintBtn: "အကူအညီ လိုချင်လား?",
+  skipBtn: "ကျော်လိုက်မယ် 💨",
+  next: "ရှေ့ဆက်မယ်",
+  clear: "မမ အားလုံး မှတ်မိတယ်။ ခိုင် ထင်ထားတာထက် ပိုတောင် ပျော်သွားတယ်။",
+};
+
+// Level 2 - memory match card faces (photos from your Telegram folder)
+export const memory = {
+  cards: [
+    { id: "corgi", src: "assets/photos/cards/corgi.jpg", label: "ခွေးလေး" },
+    { id: "matcha", src: "assets/photos/cards/matcha.jpg", label: "Kin Neko" },
+    { id: "heart-cloud", src: "assets/photos/cards/heart-cloud.jpg", label: "တိမ်" },
+    { id: "shadow-heart", src: "assets/photos/cards/shadow-heart.jpg", label: "အရိပ်" },
+    { id: "sundae", src: "assets/photos/cards/sundae.jpg", label: "ice cream" },
+    { id: "kitten", src: "assets/photos/cards/kitten.jpg", label: "ကြောင်လေး" },
+  ],
+  clear: "ခိုင်တို့ရဲ့ အမှတ်တရလေးတွေ အားလုံး ပြန်တွေ့ပြီ။",
+};
+
+// Level 3 - jigsaw (tap two tiles to swap)
+export const jigsaw = {
+  image: "assets/photos/gift-dog-block.jpg",
+  size: 3,                                  // 3x3
+  intro: "မမ ကူညီပြီး ဆောက်ခဲ့တဲ့ ပုံလေးကို ပြန်စီပေးပါ။ အကွက် နှစ်ကွက်ကို နှိပ်ရင် နေရာချင်း လဲသွားမယ်။",
+  hintBtn: "ပုံအပြည့် ကြည့်မယ်",
+  skipBtn: "ကျော်လိုက်မယ် 💨",
+  skipAfterMoves: 30,
+  clear: "ခိုင်တို့ နှစ်ယောက် အတူတူ ဆောက်ခဲ့သလိုပဲ၊ မမ ပြန်စီနိုင်ခဲ့ပြီ။",
+};
+
+// Level 4 - catch the hearts
+export const hearts = {
+  intro: "ကျလာတဲ့ အသည်းလေးတွေကို နှိပ်ပြီး ဖမ်းပါ။ ၁၅ ခု ရရင် အောင်ပြီ။",
+  target: 15,
+  seconds: 30,
+  startBtn: "စမယ်!",
+  retryBtn: "ထပ်ကြိုးစားမယ်",
+  skipBtn: "ကျော်လိုက်မယ် 💨",
+  skipAfterFails: 2,
+  timeUp: "အချိန်ကုန်သွားပြီ… ထပ်စမ်းကြည့်မလား?",
+  clear: "မမ ဖမ်းမိတဲ့ အသည်းတွေထက် ခိုင့်အသည်းက ပိုပြီး မမဆီ ရောက်နေပြီ။ 💗",
+};
+
+// Level 5 - the lock
+export const lock = {
+  code: "1409",                             // her birthday, Sept 14, as DDMM (change if wrong)
+  intro: "နောက်ဆုံး သော့ခလောက်လေးပါ။ ဂဏန်း ၄ လုံး လိုတယ်။",
+  clue: "ခိုင် ဘယ်တော့မှ မမေ့တဲ့ နေ့တစ်နေ့။ မမရဲ့ နေ့။ (ရက် ၂ လုံး + လ ၂ လုံး)",
+  hint: "မမရဲ့ မွေးနေ့လေ။ ရက်ကို အရင်၊ လကို နောက်မှာ ရိုက်ပါ။",
+  hintBtn: "အကူအညီ လိုချင်လား?",
+  skipBtn: "ကျော်လိုက်မယ် 💨",
+  wrong: "မဟုတ်သေးဘူး… ထပ်စမ်းကြည့်ပါ။",
+  hintAfterFails: 2,
+  skipAfterFails: 4,
+  clear: "သော့ ပွင့်သွားပြီ။ နောက်ဆုံး တစ်ခု ကျန်သေးတယ်…",
+};
+
+// Letter (typed out line by line)  -- PLACEHOLDER, replace with your own words
+export const letter = {
+  lines: [
+    "မမ…",
+    "စက်တင်ဘာ ၁၇ က \"Hi\" လေးတစ်လုံးကနေ စခဲ့တာ။",
+    "အခုတော့ မမ မရှိတဲ့ နေ့တွေကို ခိုင် စိတ်ကူးလို့တောင် မရတော့ဘူး။",
+    "မမ ခိုင့်ကို စိတ်ရှည်ရှည်နဲ့ စောင့်ပေးခဲ့သလို၊ ခိုင်လည်း မမကို အမြဲ စောင့်နေမယ်။",
+    "ခိုင် ပြောချင်တာက…",
+  ],
+  next: "ဆက်ဖတ်မယ်",
+};
+
+export const question = {
+  text: "ခိုင့် ချစ်သူ ဖြစ်ပေးမလား?",
+  sub: "မမ ဘယ်လို ဖြေဖြေ ခိုင် လက်ခံပါတယ်။",
+  yes: "ဖြစ်ပေးမယ် 💗",
+  later: "စဉ်းစားချိန် ပေးပါ",
+  messageLabel: "ပြောချင်တာ ရှိရင်… (မထည့်လည်း ရတယ်)",
+  send: "ပို့မယ်",
+  sending: "ပို့နေတယ်…",
+};
+
+export const thanks = {
+  yes: {
+    title: "မမ… 🥹💗",
+    lines: ["ကျေးဇူးပါ မမ။ ဒီနေ့ကစပြီး ခိုင့် အကောင်းဆုံး နေ့တွေ စပြီ။", "ခိုင် အခုချက်ချင်း မမကို ဖုန်းဆက်တော့မယ်။"],
+  },
+  later: {
+    title: "ရပါတယ် မမ 🤍",
+    lines: ["အချိန်ယူပါ။ ခိုင် စောင့်နိုင်ပါတယ်။", "မမ ဘယ်လိုပဲ ဆုံးဖြတ်ဖြတ် ခိုင် မမကို တန်ဖိုးထားဆဲပါ။"],
+  },
+  sent: "မမရဲ့ အဖြေ ခိုင့်ဆီ ရောက်သွားပြီ။",
+  failed: "အင်တာနက် မကောင်းလို့ အဖြေ မပို့နိုင်သေးဘူး။ ဒီ screen ကို screenshot ရိုက်ပြီး ခိုင့်ကို ပို့ပေးပါနော်။",
+};
+
+export const common = {
+  levelClear: (n) => `Level ${n} ✔`,
+  continueBtn: "ဆက်သွားမယ် →",
+  comingSoon: "နောက် level တွေ ဆောက်နေဆဲ… 🛠️",
+};
+
+export const email = {
+  // Her answer is delivered here via the form service (see js/email.js)
+  to: "khaingwutyiwin1712@gmail.com",
+  subjectPrefix: "[Proposal] Answer",
+};

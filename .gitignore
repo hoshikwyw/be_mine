@@ -1,0 +1,5 @@
+# If this repo is ever public, uncomment the next line so her photos are not published.
+# Photos still deploy fine with `vercel` CLI from this folder, or from a PRIVATE GitHub repo.
+# assets/photos/
+node_modules/
+.vercel/
