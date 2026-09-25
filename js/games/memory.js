@@ -1,6 +1,7 @@
 import { memory as C } from "../content.js";
 import { el, show } from "../app.js";
-import { sfx } from "../sound.js";
+import { sfx, jingle } from "../sound.js";
+import { burst } from "../fx.js";
 
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
@@ -45,9 +46,9 @@ export function memory({ onClear }) {
       status.textContent = `${matched} / ${C.cards.length}`;
       setTimeout(() => {
         a.card.classList.add("matched"); b.card.classList.add("matched");
-        sfx("match");
+        sfx("match"); burst(a.card, { count: 5, spread: 50 }); burst(b.card, { count: 5, spread: 50 });
         open = []; locked = false;
-        if (matched === C.cards.length) { sfx("sparkle"); setTimeout(() => onClear({ message: C.clear }), 600); }
+        if (matched === C.cards.length) { jingle("twinkle"); setTimeout(() => onClear({ message: C.clear }), 700); }
       }, 350);
     } else {
       setTimeout(() => {

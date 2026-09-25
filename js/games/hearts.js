@@ -1,6 +1,7 @@
 import { hearts as C } from "../content.js";
 import { el, show } from "../app.js";
-import { sfx, voice } from "../sound.js";
+import { sfx, voice, jingle } from "../sound.js";
+import { burst } from "../fx.js";
 
 const EMOJI = ["💗", "💖", "💓", "💕", "🩷"];
 
@@ -58,7 +59,7 @@ export function hearts({ onClear }) {
         e.preventDefault();
         if (over || h.classList.contains("caught")) return;
         h.classList.add("caught");
-        sfx("catch");
+        sfx("catch"); burst({ x: e.clientX, y: e.clientY }, { count: 4, spread: 45, emojis: ["✨", "💖"] });
         score++; scoreEl.textContent = `${score} / ${C.target}`;
         setTimeout(() => h.remove(), 250);
         if (score >= C.target) end(true);
@@ -71,7 +72,7 @@ export function hearts({ onClear }) {
     function end(won) {
       if (over) return;
       over = true; clearInterval(timer); clearInterval(spawner);
-      if (won) { sfx("sparkle"); setTimeout(() => onClear({ message: C.clear }), 500); }
+      if (won) { jingle("complete"); setTimeout(() => onClear({ message: C.clear }), 700); }
       else { fails++; voice("timeover"); setTimeout(() => lobby(C.timeUp), 500); }
     }
   }

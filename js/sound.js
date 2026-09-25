@@ -8,9 +8,19 @@ const SFX = {
   catch: ["catch1", "catch2"], sparkle: ["sparkle"], key: ["key"], unlock: ["unlock"],
   open: ["open"], pop: ["pop"], chime: ["chime"], question: ["question"], type: ["type"],
 };
+import { music } from "./music.js";
+
 const VOICE = {
-  correct: "v_correct", levelup: "v_level_up", congrats: "v_congratulations",
-  ready: "v_ready", go: "v_go", win: "v_you_win", timeover: "v_time_over", complete: "v_mission_completed",
+  ready: "v_ready", go: "v_go", timeover: "v_time_over",
+};
+// Synthesized cute jingles (bell-like arpeggios), no files needed. Frequencies in Hz.
+const JINGLES = {
+  levelup:  { notes: [523.25, 659.25, 783.99, 1046.5], step: 0.09, len: 0.4, wave: "triangle", vol: 0.22 },                 // C E G C  quick rise
+  complete: { notes: [659.25, 783.99, 987.77, 1318.5, 1567.98, 1975.5], step: 0.1, len: 0.55, wave: "sine", vol: 0.2 },    // sparkle up
+  win:      { notes: [523.25, 659.25, 783.99, 1046.5, 987.77, 1046.5, 1318.5, 1567.98], step: 0.14, len: 0.7, wave: "triangle", vol: 0.22 }, // little fanfare
+  twinkle:  { notes: [1567.98, 2093, 2637], step: 0.07, len: 0.3, wave: "sine", vol: 0.12 },
+  correct:  { notes: [1318.5, 1760], step: 0.09, len: 0.45, wave: "sine", vol: 0.2 },                                  // "ding-ding" (E6 A6)
+  yes:      { notes: [523.25, 659.25, 783.99, 1046.5, 1318.5], step: 0, len: 2.4, wave: "sine", vol: 0.13 },           // warm bell chord, all at once
 };
 const VOL = { sfx: 0.55, voice: 0.85, type: 0.12 };
 const MUTE_KEY = "mm-sound-muted";
@@ -65,8 +75,27 @@ const pick = (a) => a[Math.floor(Math.random() * a.length)];
 export const sfx = (kind, vol) => { const list = SFX[kind]; if (list) playName(pick(list), vol ?? (kind === "type" ? VOL.type : VOL.sfx)); };
 export const voice = (kind, delay = 0) => { const n = VOICE[kind]; if (!n) return; delay ? setTimeout(() => playName(n, VOL.voice), delay) : playName(n, VOL.voice); };
 
+export async function jingle(kind, delay = 0) {
+  const cfg = JINGLES[kind]; if (!cfg || muted) return;
+  const c = ensureCtx(); if (!c) return;
+  if (c.state === "suspended") { try { await c.resume(); } catch {} }
+  const t0 = c.currentTime + 0.02 + delay / 1000;
+  cfg.notes.forEach((f, i) => {
+    const t = t0 + i * cfg.step;
+    for (const [mult, g] of [[1, 1], [2, 0.22], [3, 0.06]]) {      // fundamental + soft overtones = bell
+      const o = c.createOscillator(); o.type = cfg.wave; o.frequency.value = f * mult;
+      const gn = c.createGain();
+      gn.gain.setValueAtTime(0.0001, t);
+      gn.gain.exponentialRampToValueAtTime(cfg.vol * g, t + 0.012);
+      gn.gain.exponentialRampToValueAtTime(0.0001, t + cfg.len);
+      o.connect(gn).connect(c.destination); o.start(t); o.stop(t + cfg.len + 0.05);
+    }
+  });
+}
+
+export function getCtx() { return ensureCtx(); }
 export function isMuted() { return muted; }
-export function setMuted(v) { muted = v; try { localStorage.setItem(MUTE_KEY, v ? "1" : "0"); } catch {} }
+export function setMuted(v) { muted = v; try { localStorage.setItem(MUTE_KEY, v ? "1" : "0"); } catch {} music.onMute(v); }
 
 // ---- global wiring: unlock on first gesture, generic taps -----------------
 ["pointerdown", "touchend", "keydown"].forEach((ev) => addEventListener(ev, () => { if (!unlocked) unlock(); }, { once: false, passive: true }));

@@ -1,8 +1,9 @@
 import { letter as L, question as Q, thanks as T } from "./content.js";
-import { el, show, state, save } from "./app.js";
+import { el, show, state, save, reset } from "./app.js";
 import { sendAnswer } from "./email.js";
 import { confetti } from "./confetti.js";
-import { sfx, voice } from "./sound.js";
+import { sfx, voice, jingle } from "./sound.js";
+import { burst, floatHearts, heartRain } from "./fx.js";
 
 // Split Burmese text into grapheme clusters so diacritics never appear alone mid-typing.
 const seg = typeof Intl !== "undefined" && Intl.Segmenter ? new Intl.Segmenter("my", { granularity: "grapheme" }) : null;
@@ -48,7 +49,7 @@ export function questionScreen() {
         <label class="muted" for="msg">${Q.messageLabel}</label>
         <textarea id="msg" rows="3"></textarea>
         <div class="stack">
-          <button class="btn" id="yes">${Q.yes}</button>
+          <button class="btn pulse" id="yes">${Q.yes}</button>
           <button class="btn ghost" id="later">${Q.later}</button>
         </div>
         <div class="toast" id="toast"></div>
@@ -68,10 +69,11 @@ export function questionScreen() {
     save();
     thanksScreen();
   };
-  btns[0].onclick = () => submit("yes");
+  btns[0].onclick = () => { burst(btns[0], { count: 16, spread: 140 }); submit("yes"); };
   btns[1].onclick = () => submit("need-time");
   show(node);
   sfx("question");
+  floatHearts({ every: 800, big: true });
 }
 
 export function thanksScreen() {
@@ -84,9 +86,11 @@ export function thanksScreen() {
         ${t.lines.map((l) => `<p>${l}</p>`).join("")}
         <p class="muted ${a.sent ? "" : "warn"}">${a.sent ? T.sent : T.failed}</p>
         ${a.sent ? "" : `<p class="muted">answer: ${a.answer}${a.message ? " · " + a.message : ""}</p>`}
+        <button class="btn ghost small restart" id="restart">${T.restart}</button>
       </div>
     </section>`);
+  node.querySelector("#restart").onclick = () => { if (confirm("Reset?")) reset(); };
   show(node);
-  if (a.answer === "yes") { confetti(4500); sfx("sparkle"); voice("congrats", 200); voice("win", 2200); }
-  else sfx("chime");
+  if (a.answer === "yes") { confetti(4500); heartRain(5000); jingle("win", 100); jingle("yes", 1400); }
+  else { sfx("chime"); floatHearts({ every: 1200 }); }
 }

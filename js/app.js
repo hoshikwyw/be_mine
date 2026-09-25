@@ -5,7 +5,9 @@ import { jigsaw } from "./games/jigsaw.js";
 import { hearts } from "./games/hearts.js";
 import { lock } from "./games/lock.js";
 import { letterScreen, thanksScreen } from "./final.js";
-import { sfx, voice, mountMuteButton } from "./sound.js";
+import { sfx, jingle, mountMuteButton } from "./sound.js";
+import { music } from "./music.js";
+import { burst, floatHearts, stopFloat } from "./fx.js";
 
 const STORAGE_KEY = "mm-proposal-v1";
 const app = document.getElementById("app");
@@ -28,6 +30,7 @@ export function el(html) {
   return t.content.firstElementChild;
 }
 export function show(node) {
+  stopFloat();
   const old = app.firstElementChild;
   let done = false;
   const swap = () => { if (done) return; done = true; app.replaceChildren(node); window.scrollTo({ top: 0 }); };
@@ -36,12 +39,13 @@ export function show(node) {
   old.addEventListener("animationend", swap, { once: true });
   setTimeout(swap, 300); // safety if animationend never fires
 }
-function renderHearts() {
+function renderHearts(justFilled = -1) {
   heartsEl.replaceChildren(
     ...Array.from({ length: TOTAL_LEVELS }, (_, i) => {
       const s = document.createElement("span");
       s.textContent = i < state.cleared ? "💗" : "🤍";
       if (i < state.cleared) s.classList.add("on");
+      if (i === justFilled) s.classList.add("new");
       return s;
     })
   );
@@ -61,9 +65,11 @@ function introScreen() {
     </section>`);
   node.querySelector("#start").onclick = () => {
     if (!state.startedAt) { state.startedAt = new Date().toISOString(); save(); }
+    music.start();
     gotoLevel(state.cleared + 1);
   };
   show(node);
+  floatHearts({ every: 900 });
 }
 
 function levelIntroScreen(n) {
@@ -84,9 +90,10 @@ function levelIntroScreen(n) {
 function levelClear(n, { skipped = false, message = "" } = {}) {
   if (state.cleared < n) state.cleared = n;
   if (skipped && !state.skipped.includes(n)) state.skipped.push(n);
-  save(); renderHearts();
+  save(); renderHearts(n - 1);
   const node = el(`
     <section class="screen clear">
+      <span class="ring"></span>
       <span class="check">💗</span>
       <h1>${common.levelClear(n)}</h1>
       ${message ? `<p class="reveal">${message}</p>` : ""}
@@ -95,7 +102,9 @@ function levelClear(n, { skipped = false, message = "" } = {}) {
     </section>`);
   node.querySelector("#next").onclick = () => gotoLevel(n + 1);
   show(node);
-  sfx("chime"); voice("levelup", 250);
+  jingle("levelup", 150);
+  setTimeout(() => { const c = node.querySelector(".check"); if (c) burst(c, { count: 14, spread: 130 }); }, 350);
+  floatHearts({ every: 600 });
 }
 
 export function gotoLevel(n) {
@@ -111,4 +120,15 @@ if (params.has("level")) { state.cleared = Math.max(0, Number(params.get("level"
 
 // ---- boot -------------------------------------------------------------
 mountMuteButton();
-introScreen();
+// secret reset for testing: tap the speaker button 7 times within 3 seconds
+{
+  let taps = 0, t0 = 0;
+  document.querySelector(".mute")?.addEventListener("click", () => {
+    const now = Date.now();
+    if (now - t0 > 3000) taps = 0;
+    t0 = now; taps++;
+    if (taps >= 7 && confirm("Reset all progress?")) reset();
+  });
+}
+if (params.has("level")) { music.start(); gotoLevel(state.cleared + 1); }   // dev: skip intro
+else introScreen();

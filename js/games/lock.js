@@ -1,6 +1,7 @@
 import { lock as C } from "../content.js";
 import { el, show } from "../app.js";
-import { sfx, voice } from "../sound.js";
+import { sfx, jingle } from "../sound.js";
+import { burst } from "../fx.js";
 
 export function lock({ onClear }) {
   let entry = "", fails = 0;
@@ -52,7 +53,7 @@ export function lock({ onClear }) {
     if (entry === C.code) {
       slots.classList.add("open");
       toast.textContent = "🔓";
-      sfx("unlock"); voice("complete", 300);
+      sfx("unlock"); jingle("complete", 250); burst(slots, { count: 14, spread: 120 });
       setTimeout(() => onClear({ message: C.clear }), 1400);
       return;
     }
