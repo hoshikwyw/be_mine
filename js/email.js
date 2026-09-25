@@ -3,7 +3,7 @@
 // The key is fine to be public: it can only send mail TO your address.
 import { email as C } from "./content.js";
 
-export const ACCESS_KEY = "PASTE_WEB3FORMS_ACCESS_KEY_HERE";
+export const ACCESS_KEY = "04a2d93d-c711-48d3-9cfc-3e1366e788fe";
 
 export async function sendAnswer({ answer, message = "", cleared, skipped, startedAt }) {
   const body = {

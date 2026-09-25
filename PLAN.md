@@ -115,7 +115,7 @@ Proposal/
 - [ ] Exact wording of the final question
 - [ ] Wording for the Yes screen and the Give-me-time screen
 - [ ] Color / vibe (her favorite color; default: warm rose + cream)
-- [x] Email: khaingwutyiwin1712@gmail.com (Web3Forms access key still needed)
+- [x] Email: khaingwutyiwin1712@gmail.com via Web3Forms, key in js/email.js, test submission accepted 2026-09-25
 
 ## 9. Build steps
 1. Write `content.js` first with all Burmese text. Review wording together.
@@ -147,4 +147,5 @@ Proposal/
 - 2026-09-25 (polish): replaced 'level up' / 'mission completed' / 'you win' voice lines with synthesized bell jingles (js/sound.js JINGLES). Added js/fx.js: emoji bursts, floating hearts, heart rain. Restart button on the thank-you screen; hidden 7-tap reset on the speaker button. npm start / npm run start:phone.
 - 2026-09-25 (music): 'correct' and 'congratulations' voices replaced by bell jingles. Added js/music.js: original music-box background loop (C-Am-F-G / C-Am-Dm-G, 92 BPM) synthesized in Web Audio, fades in on Start, follows the mute button. Voice lines left: ready, go, time over.
 - 2026-09-25 (design): minimalist restyle (flat bg, 1px-bordered cards, calmer buttons), Myanmar type scale reduced (body 15px), keep-all line breaking, shorter hint/skip labels, question split on two lines. Letter v1 written into content.js. Verified at iPhone 12 mini size (375x812) via _shots.html harness + headless Chrome (dev only, excluded by .vercelignore).
-- Next: Web3Forms key, letter review, real iPhone test (sound + music), deploy to Vercel.
+- 2026-09-25 (email): Web3Forms key wired; API returned success on a browser-style test submission. Note: Web3Forms free plan rejects pure server-side calls, so only test from a real browser.
+- Next: real iPhone test (layout, sound, music, a real Yes/need-time submission), then `vercel` deploy.
