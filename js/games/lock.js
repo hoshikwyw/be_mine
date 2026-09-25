@@ -1,5 +1,6 @@
 import { lock as C } from "../content.js";
 import { el, show } from "../app.js";
+import { sfx, voice } from "../sound.js";
 
 export function lock({ onClear }) {
   let entry = "", fails = 0;
@@ -51,12 +52,14 @@ export function lock({ onClear }) {
     if (entry === C.code) {
       slots.classList.add("open");
       toast.textContent = "🔓";
-      setTimeout(() => onClear({ message: C.clear }), 900);
+      sfx("unlock"); voice("complete", 300);
+      setTimeout(() => onClear({ message: C.clear }), 1400);
       return;
     }
     fails++;
     slots.classList.add("shake");
     toast.textContent = C.wrong;
+    sfx("wrong");
     if (fails >= C.hintAfterFails) hintBtn.classList.add("glow");
     if (fails >= C.skipAfterFails) skipBtn.hidden = false;
     setTimeout(() => { slots.classList.remove("shake"); entry = ""; draw(); locked = false; }, 600);

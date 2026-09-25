@@ -1,5 +1,6 @@
 import { jigsaw as C } from "../content.js";
 import { el, show } from "../app.js";
+import { sfx } from "../sound.js";
 
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
@@ -59,6 +60,7 @@ export function jigsaw({ onClear }) {
   function solve() {
     order = [...Array(total).keys()]; selected = null; render();
     board.classList.add("solved");
+    sfx("sparkle");
     setTimeout(() => onClear({ skipped: skippedFlag, message: C.clear }), 1200);
   }
 }

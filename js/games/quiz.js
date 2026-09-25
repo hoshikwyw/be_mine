@@ -1,5 +1,6 @@
 import { quiz as C } from "../content.js";
 import { el, show } from "../app.js";
+import { sfx, voice } from "../sound.js";
 
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
@@ -52,12 +53,14 @@ export function quiz({ onClear }) {
           btn.classList.add("correct");
           opts.querySelectorAll(".option").forEach((b) => (b.disabled = true));
           toast.textContent = pick(C.correct);
+          sfx("correct"); voice("correct", 150);
           setTimeout(() => reveal(q, false), 900);
         } else {
           misses++;
           btn.classList.add("wrong");
           btn.disabled = true;
           toast.textContent = C.wrong;
+          sfx("wrong");
           if (misses >= 2 && !hintShown) hintBtn.classList.add("glow");
           if (misses >= 3) skipBtn.hidden = false;
         }
@@ -80,6 +83,7 @@ export function quiz({ onClear }) {
       </section>`);
     const img = node.querySelector("img");
     if (img) img.onerror = () => img.remove();
+    sfx("sparkle");
     node.querySelector("#next").onclick = () => {
       i++;
       if (i < C.questions.length) question();

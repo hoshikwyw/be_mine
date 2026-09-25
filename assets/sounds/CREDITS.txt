@@ -1,0 +1,2 @@
+Sound effects and voice lines: Kenney (https://kenney.nl) - "Interface Sounds" and "Voiceover Pack".
+License: CC0 1.0 (public domain), no attribution required. Converted to 22 kHz mono WAV.

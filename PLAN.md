@@ -143,4 +143,5 @@ Proposal/
 ## 12. Build log
 - 2026-09-25: app shell (intro, level intro, progress hearts, level clear, localStorage resume), Level 1 quiz complete with real content and photos. Email module written (needs Web3Forms key). Photos imported from Telegram folder and resized; 6 memory-card faces cut.
 - 2026-09-25 (later): Levels 2-5 built (memory match, jigsaw, catch the hearts, lock 1409). Letter (typewriter, placeholder text), question, answer -> email, thank-you screens, confetti. Dev: ?reset clears progress, ?level=N jumps to level N.
-- Next: Web3Forms key, your real letter text, phone test, deploy to Vercel.
+- 2026-09-25 (sounds): fixed hearts game class clash. Added js/sound.js (Web Audio, unlock on first tap, mute button top-right, persisted). 23 CC0 clips from Kenney (Interface Sounds + female Voiceover Pack) converted offline to 22 kHz WAV via headless Chrome because the network was ~9 KB/s. Wired: button click, card flip/match, quiz correct/wrong + voice, heart catch, keypad, unlock + voice, level clear chime + 'level up', letter typing tick, question sting, yes = 'congratulations' + 'you win'.
+- Next: Web3Forms key, your real letter text, phone test (esp. sound on iPhone), deploy to Vercel.

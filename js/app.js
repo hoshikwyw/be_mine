@@ -5,6 +5,7 @@ import { jigsaw } from "./games/jigsaw.js";
 import { hearts } from "./games/hearts.js";
 import { lock } from "./games/lock.js";
 import { letterScreen, thanksScreen } from "./final.js";
+import { sfx, voice, mountMuteButton } from "./sound.js";
 
 const STORAGE_KEY = "mm-proposal-v1";
 const app = document.getElementById("app");
@@ -77,6 +78,7 @@ function levelIntroScreen(n) {
     </section>`);
   node.querySelector("#go").onclick = () => games[n]({ onClear: (opts) => levelClear(n, opts) });
   show(node);
+  sfx("open");
 }
 
 function levelClear(n, { skipped = false, message = "" } = {}) {
@@ -93,6 +95,7 @@ function levelClear(n, { skipped = false, message = "" } = {}) {
     </section>`);
   node.querySelector("#next").onclick = () => gotoLevel(n + 1);
   show(node);
+  sfx("chime"); voice("levelup", 250);
 }
 
 export function gotoLevel(n) {
@@ -107,4 +110,5 @@ if (params.has("reset")) { try { localStorage.removeItem(STORAGE_KEY); } catch {
 if (params.has("level")) { state.cleared = Math.max(0, Number(params.get("level")) - 1); state.answer = null; }
 
 // ---- boot -------------------------------------------------------------
+mountMuteButton();
 introScreen();

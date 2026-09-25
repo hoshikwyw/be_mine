@@ -1,5 +1,6 @@
 import { hearts as C } from "../content.js";
 import { el, show } from "../app.js";
+import { sfx, voice } from "../sound.js";
 
 const EMOJI = ["💗", "💖", "💓", "💕", "🩷"];
 
@@ -34,6 +35,7 @@ export function hearts({ onClear }) {
     const scoreEl = node.querySelector("#score");
     const timeEl = node.querySelector("#time");
     show(node);
+    voice("ready"); voice("go", 900);
 
     const timer = setInterval(() => {
       left--; timeEl.textContent = `${left}s`;
@@ -56,6 +58,7 @@ export function hearts({ onClear }) {
         e.preventDefault();
         if (over || h.classList.contains("caught")) return;
         h.classList.add("caught");
+        sfx("catch");
         score++; scoreEl.textContent = `${score} / ${C.target}`;
         setTimeout(() => h.remove(), 250);
         if (score >= C.target) end(true);
@@ -68,8 +71,8 @@ export function hearts({ onClear }) {
     function end(won) {
       if (over) return;
       over = true; clearInterval(timer); clearInterval(spawner);
-      if (won) setTimeout(() => onClear({ message: C.clear }), 500);
-      else { fails++; setTimeout(() => lobby(C.timeUp), 500); }
+      if (won) { sfx("sparkle"); setTimeout(() => onClear({ message: C.clear }), 500); }
+      else { fails++; voice("timeover"); setTimeout(() => lobby(C.timeUp), 500); }
     }
   }
 

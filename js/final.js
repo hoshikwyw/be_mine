@@ -2,6 +2,7 @@ import { letter as L, question as Q, thanks as T } from "./content.js";
 import { el, show, state, save } from "./app.js";
 import { sendAnswer } from "./email.js";
 import { confetti } from "./confetti.js";
+import { sfx, voice } from "./sound.js";
 
 // Split Burmese text into grapheme clusters so diacritics never appear alone mid-typing.
 const seg = typeof Intl !== "undefined" && Intl.Segmenter ? new Intl.Segmenter("my", { granularity: "grapheme" }) : null;
@@ -21,9 +22,11 @@ export function letterScreen() {
   (async () => {
     for (const line of L.lines) {
       const p = document.createElement("p"); box.appendChild(p);
+      let k = 0;
       for (const g of graphemes(line)) {
         if (cancelled) break;
         p.textContent += g;
+        if (g !== " " && k++ % 3 === 0) sfx("type");
         await new Promise((r) => setTimeout(r, g === " " ? 90 : 45));
       }
       if (cancelled) break;
@@ -68,6 +71,7 @@ export function questionScreen() {
   btns[0].onclick = () => submit("yes");
   btns[1].onclick = () => submit("need-time");
   show(node);
+  sfx("question");
 }
 
 export function thanksScreen() {
@@ -83,5 +87,6 @@ export function thanksScreen() {
       </div>
     </section>`);
   show(node);
-  if (a.answer === "yes") confetti(4500);
+  if (a.answer === "yes") { confetti(4500); sfx("sparkle"); voice("congrats", 200); voice("win", 2200); }
+  else sfx("chime");
 }
