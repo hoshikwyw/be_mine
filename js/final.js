@@ -1,5 +1,5 @@
 import { letter as L, question as Q, thanks as T } from "./content.js";
-import { el, show, state, save, reset } from "./app.js";
+import { el, show, state, save, askReset } from "./app.js";
 import { sendAnswer } from "./email.js";
 import { confetti } from "./confetti.js";
 import { sfx, voice, jingle } from "./sound.js";
@@ -89,7 +89,7 @@ export function thanksScreen() {
         <button class="btn ghost small restart" id="restart">${T.restart}</button>
       </div>
     </section>`);
-  node.querySelector("#restart").onclick = () => { if (confirm("Reset?")) reset(); };
+  node.querySelector("#restart").onclick = () => askReset();
   show(node);
   if (a.answer === "yes") { confetti(4500); heartRain(5000); jingle("win", 100); jingle("yes", 1400); }
   else { sfx("chime"); floatHearts({ every: 1200 }); }

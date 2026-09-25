@@ -13,7 +13,7 @@ Her answer (and an optional message from her) is emailed to you automatically.
 | Language | Myanmar (Unicode), with embedded webfont so it renders on any phone |
 | Structure | Intro -> 5 levels (games/puzzles) -> final question -> answer sent to email |
 | Tech | Plain HTML/CSS/JS with ES modules. No framework, no build step. |
-| Hosting | **Vercel** (decided), unguessable URL, noindex via vercel.json |
+| Hosting | **Vercel**: https://be-mine-taupe-six.vercel.app/ (live 2026-09-25), noindex via vercel.json |
 | Email | Web3Forms -> **khaingwutyiwin1712@gmail.com** (decided). Access key goes in js/email.js |
 
 ## 3. Experience flow
@@ -148,4 +148,5 @@ Proposal/
 - 2026-09-25 (music): 'correct' and 'congratulations' voices replaced by bell jingles. Added js/music.js: original music-box background loop (C-Am-F-G / C-Am-Dm-G, 92 BPM) synthesized in Web Audio, fades in on Start, follows the mute button. Voice lines left: ready, go, time over.
 - 2026-09-25 (design): minimalist restyle (flat bg, 1px-bordered cards, calmer buttons), Myanmar type scale reduced (body 15px), keep-all line breaking, shorter hint/skip labels, question split on two lines. Letter v1 written into content.js. Verified at iPhone 12 mini size (375x812) via _shots.html harness + headless Chrome (dev only, excluded by .vercelignore).
 - 2026-09-25 (email): Web3Forms key wired; API returned success on a browser-style test submission. Note: Web3Forms free plan rejects pure server-side calls, so only test from a real browser.
-- Next: real iPhone test (layout, sound, music, a real Yes/need-time submission), then `vercel` deploy.
+- 2026-09-25 (deploy): live at https://be-mine-taupe-six.vercel.app/. Dev files were publicly served, so vercel.json now rewrites PLAN.md, content/, _shots.html, package.json to a 404. Redeploy needed.
+- Next: redeploy, real iPhone test on the live URL (layout, sound, music, a real Give-me-time submission), then pick the moment.

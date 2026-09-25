@@ -10,13 +10,12 @@ export async function sendAnswer({ answer, message = "", cleared, skipped, start
     access_key: ACCESS_KEY,
     subject: `${C.subjectPrefix}: ${String(answer).toUpperCase()}`,
     from_name: "Proposal site",
-    answer,
-    message,
-    levels_cleared: cleared,
+    answer: String(answer),
+    message: message && message.trim() ? message.trim() : "(no message)",
+    levels_cleared: String(cleared),
     levels_skipped: (skipped && skipped.length) ? skipped.join(", ") : "none",
-    started_at: startedAt,
+    started_at: String(startedAt || "-"),
     answered_at: new Date().toString(),
-    user_agent: navigator.userAgent,
   };
   const attempt = () =>
     fetch("https://api.web3forms.com/submit", {

@@ -7,6 +7,7 @@ import { lock } from "./games/lock.js";
 import { letterScreen, thanksScreen } from "./final.js";
 import { sfx, jingle, mountMuteButton } from "./sound.js";
 import { music } from "./music.js";
+import { confirmDialog } from "./dialog.js";
 import { burst, floatHearts, stopFloat } from "./fx.js";
 
 const STORAGE_KEY = "mm-proposal-v1";
@@ -19,6 +20,9 @@ export const state = load() || { cleared: 0, skipped: [], startedAt: null, answe
 function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { return null; } }
 export function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {} }
 export function reset() { try { localStorage.removeItem(STORAGE_KEY); } catch {} location.reload(); }
+export async function askReset() {
+  if (await confirmDialog(common.confirmReset, { ok: common.confirmYes, cancel: common.confirmNo })) reset();
+}
 
 // ---- levels registry (order = play order) -----------------------------
 const games = { 1: quiz, 2: memory, 3: jigsaw, 4: hearts, 5: lock };
@@ -127,7 +131,7 @@ mountMuteButton();
     const now = Date.now();
     if (now - t0 > 3000) taps = 0;
     t0 = now; taps++;
-    if (taps >= 7 && confirm("Reset all progress?")) reset();
+    if (taps >= 7) { taps = 0; askReset(); }
   });
 }
 if (params.has("level")) { music.start(); gotoLevel(state.cleared + 1); }   // dev: skip intro

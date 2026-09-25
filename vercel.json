@@ -6,5 +6,13 @@
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/PLAN.md", "destination": "/__hidden__" },
+    { "source": "/content/:path*", "destination": "/__hidden__" },
+    { "source": "/_shots.html", "destination": "/__hidden__" },
+    { "source": "/package.json", "destination": "/__hidden__" },
+    { "source": "/assets/photos/README.md", "destination": "/__hidden__" },
+    { "source": "/assets/sounds/CREDITS.txt", "destination": "/__hidden__" }
   ]
 }

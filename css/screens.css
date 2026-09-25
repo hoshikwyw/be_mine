@@ -100,5 +100,16 @@
 @keyframes matchglow { 30% { filter: brightness(1.35) saturate(1.3); } }
 .thanks .restart { margin-top: 18px; opacity: .7; }
 
+/* Dialog */
+.dlg-wrap { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 24px; background: rgba(20, 12, 15, .45); animation: dlgfade .2s ease both; }
+.dlg-wrap.out { animation: dlgout .2s ease both; }
+@keyframes dlgfade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dlgout { to { opacity: 0; } }
+.dlg { width: 100%; max-width: 320px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px 20px 18px; box-shadow: 0 12px 40px rgba(0,0,0,.25); animation: dlgpop .25s cubic-bezier(.2,1.2,.4,1) both; }
+@keyframes dlgpop { from { transform: scale(.92); opacity: 0; } to { transform: none; opacity: 1; } }
+.dlg-text { text-align: center; margin: 0 0 18px; font-size: 16px; }
+.dlg-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dlg-btns .btn { min-height: 46px; font-size: 14px; }
+
 /* Placeholder */
 .placeholder { text-align: center; padding-top: 10vh; }

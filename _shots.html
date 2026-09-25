@@ -19,12 +19,13 @@ const plans = {
   letter:   { url: "/?reset&level=6", steps: [] },
   question: { url: "/?reset&level=6", steps: ["#typed", "#next"] },
   clear:    { url: "/?reset&level=5", steps: ["#go", ".key[data-k='1']", ".key[data-k='4']", ".key[data-k='0']", ".key[data-k='9']"] },
+  dialog:   { url: "/?reset", steps: [[".mute", 120], [".mute", 120], [".mute", 120], [".mute", 120], [".mute", 120], [".mute", 120], [".mute", 900]] },
 };
 const plan = plans[screen] || plans.intro;
 f.src = plan.url;
 f.addEventListener("load", async () => {
   await wait(900);
-  for (const s of plan.steps) await click(s, s === "#typed" ? 400 : 900);
+  for (const s of plan.steps) { const [sel, ms] = Array.isArray(s) ? s : [s, s === "#typed" ? 400 : 900]; await click(sel, ms); }
   await wait(1200);
   document.title = "ready:" + screen;
 });

@@ -175,6 +175,9 @@ export const thanks = {
 };
 
 export const common = {
+  confirmReset: "အစကနေ ပြန်စချင်ပါသလား",
+  confirmYes: "ပြန်စမယ်",
+  confirmNo: "မလုပ်တော့ဘူး",
   levelClear: (n) => `Level ${n} ✔`,
   continueBtn: "ဆက်သွားမယ် →",
   comingSoon: "နောက် level တွေ ဆောက်နေဆဲ… 🛠️",
